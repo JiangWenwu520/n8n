@@ -12,11 +12,15 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
     labels:
-      - traefik.enable=true
-      - traefik.http.routers.n8n-internal.rule=Host(`n8n.h5-games-toos.online`)
-      - traefik.http.routers.n8n-internal.entrypoints=websecure
-      - traefik.http.routers.n8n-internal.tls.certresolver=letsencrypt
-      - traefik.http.services.n8n-internal.loadbalancer.server.port=5678
+  - traefik.enable=true               # 让 Traefik 看到容器
+  - traefik.http.routers.n8n.rule=Host(`n8n.h5-games-toos.online`)
+  - traefik.http.routers.n8n.entrypoints=websecure
+  - traefik.http.routers.n8n.tls.certresolver=letsencrypt
+  - traefik.http.services.n8n.loadbalancer.server.port=5678
+
+   # 告诉 Traefik 忽略 Swarm 自动 service
+   - traefik.docker.network=dokploy-network
+    
     networks:
       - dokploy-network
 
