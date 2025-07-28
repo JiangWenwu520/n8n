@@ -13,10 +13,10 @@ services:
       - n8n_data:/home/node/.n8n
     labels:
       - traefik.enable=true
-      - traefik.http.routers.n8n.rule=Host(`n8n.h5-games-toos.online`)
-      - traefik.http.routers.n8n.entrypoints=websecure
-      - traefik.http.services.n8n.loadbalancer.server.port=5678
-      - traefik.docker.network=dokploy-network
+      - traefik.http.routers.n8n-internal.rule=Host(`n8n.h5-games-toos.online`)
+      - traefik.http.routers.n8n-internal.entrypoints=websecure
+      - traefik.http.routers.n8n-internal.tls.certresolver=letsencrypt
+      - traefik.http.services.n8n-internal.loadbalancer.server.port=5678
     networks:
       - dokploy-network
 
